@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // Add this
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
 import '../../controllers/home_controllers.dart';
 import '../../generated/l10n.dart';
 import '../../service/game_service.dart';
-import '../../utilti/loding_indicator.dart';
 import '../../widgets/CustomWhitContainer.dart';
 
-// Constants for better maintainability
+// Constants
 class AppConstants {
   static const double notificationIconSize = 50.0;
-  static const double profileAvatarSize = 60.0;
-  static const double iconContainerSize = 70.0;
   static const double borderRadius = 25.0;
   static const double padding = 20.0;
   static const int roomCodeLength = 5;
@@ -43,6 +40,20 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
+  // Helper for SnackBars that is safe from context errors
+  void _showSnackBar(String message, {bool isError = false}) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: isError ? Colors.red : Colors.green,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(20),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
@@ -61,16 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Consumer<HomeControllers>(
             builder: (context, provider, child) {
               if (provider.isLoading) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CircularProgressIndicator(),
-                      const SizedBox(height: 16),
-                      Text(l10n.loading),
-                    ],
-                  ),
-                );
+                return const Center(child: CircularProgressIndicator());
               }
 
               return RefreshIndicator(
@@ -86,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const SizedBox(height: 20),
                           _buildHeader(provider, l10n),
                           const SizedBox(height: 30),
-                          _buildQuickPlayCard(context, l10n, provider),
+                          _buildQuickPlayCard(l10n),
                           const SizedBox(height: 20),
                           Row(
                             children: [
@@ -96,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   subtitle: l10n.newPrizes,
                                   icon: Icons.calendar_today,
                                   color: AppColors.dailyQuestionsColor,
-                                  onTap: () {},
+                                  onTap: () => _showSnackBar("Coming soon!"),
                                 ),
                               ),
                               const SizedBox(width: 15),
@@ -107,9 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   icon: Icons.person_outline,
                                   iconText: 'VS',
                                   color: AppColors.challengePlayerColor,
-                                  onTap: () {
-                                    _showGameOptions(context, provider, l10n);
-                                  },
+                                  onTap: () => _showGameOptions(provider, l10n),
                                 ),
                               ),
                             ],
@@ -130,18 +130,209 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Header, QuickPlayCard, GameModeCard, Leaderboard Section widgets remain same...
-  // (Included below for completeness)
+  // --- GAME LOGIC (FIXED) ---
+
+  void _showGameOptions(HomeControllers provider, S l10n) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (sheetContext) {
+        return Container(
+          height: AppConstants.bottomSheetHeight,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+          ),
+          child: Column(
+            children: [
+              const SizedBox(height: 15),
+              Container(width: 50, height: 5, decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(10))),
+              const SizedBox(height: 20),
+              Text(l10n.startPlaying, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 10),
+              ListTile(
+                leading: const Icon(Icons.add_circle, color: Colors.blue),
+                title: Text(l10n.createRoom),
+                onTap: () {
+                  Navigator.pop(sheetContext); // Close BottomSheet
+                  _handleCreateRoom(provider, l10n);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.login, color: Colors.green),
+                title: Text(l10n.joinRoom),
+                onTap: () {
+                  Navigator.pop(sheetContext); // Close BottomSheet
+                  _showJoinDialog(provider, l10n);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _handleCreateRoom(HomeControllers provider, S l10n) async {
+    // 1. Show Loading Manually using Main Context
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(child: CircularProgressIndicator()),
+    );
+
+    try {
+      // 2. Async Firebase Call
+      final roomId = await GameMethods.createRoom(provider.username);
+      debugPrint("Room Created: $roomId");
+
+      // 3. CLOSE LOADING
+      if (mounted) Navigator.of(context, rootNavigator: true).pop();
+
+      // Small delay to allow navigation stack to clear
+      await Future.delayed(const Duration(milliseconds: 200));
+
+      if (roomId.isNotEmpty && mounted) {
+        _showRoomCodeDialog(roomId, l10n);
+        _listenForPlayerJoin(roomId);
+      }
+    } catch (e) {
+      if (mounted) {
+        Navigator.of(context, rootNavigator: true).pop();
+        _showSnackBar("Error: $e", isError: true);
+      }
+    }
+  }
+
+  void _listenForPlayerJoin(String roomId) {
+    _roomListener?.cancel();
+    _roomListener = FirebaseFirestore.instance.collection('rooms').doc(roomId).snapshots().listen(
+          (snapshot) {
+        if (!mounted || !snapshot.exists) return;
+        final data = snapshot.data();
+
+        if (data != null && data['gameState'] == 'playing') {
+          _roomListener?.cancel();
+          // Close Code Dialog
+          Navigator.of(context, rootNavigator: true).pop();
+          // Go to Game
+          Navigator.pushNamed(context, '/game', arguments: roomId);
+          _showSnackBar("Player Joined! Starting...");
+        }
+      },
+      onError: (e) => _showSnackBar("Sync Error", isError: true),
+    );
+  }
+
+  void _showRoomCodeDialog(String roomId, S l10n) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) {
+          if (didPop) return;
+          _roomListener?.cancel();
+          Navigator.of(dialogContext).pop();
+        },
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: Text(l10n.roomCreated),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(l10n.shareCode, textAlign: TextAlign.center),
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(15), border: Border.all(color: Colors.blue.shade200, width: 2)),
+                child: Text(roomId, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, letterSpacing: 8, color: Colors.blue)),
+              ),
+              const SizedBox(height: 20),
+              const LinearProgressIndicator(),
+              const SizedBox(height: 10),
+              const Text("Waiting for friend...", style: TextStyle(color: Colors.grey, fontSize: 12)),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                _roomListener?.cancel();
+                Navigator.of(dialogContext).pop();
+              },
+              child: Text(l10n.cancel, style: const TextStyle(color: Colors.red)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showJoinDialog(HomeControllers provider, S l10n) {
+    final TextEditingController codeController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: const Text("Join Room"),
+        content: TextField(
+          controller: codeController,
+          keyboardType: TextInputType.number,
+          maxLength: 5,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, letterSpacing: 5),
+          decoration: const InputDecoration(hintText: "00000", counterText: ""),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(dialogContext), child: const Text("Cancel")),
+          ElevatedButton(
+            onPressed: () async {
+              final code = codeController.text.trim();
+              if (code.length != 5) return;
+              Navigator.pop(dialogContext); // Close Input Dialog
+              // Show Loading
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) => const Center(child: CircularProgressIndicator()),
+              );
+
+              try {
+                bool success = await GameMethods.joinRoom(code, provider.username);
+                if (mounted) Navigator.of(context, rootNavigator: true).pop(); // Close Loading
+
+                if (success && mounted) {
+                  Navigator.pushNamed(context, '/game', arguments: code);
+                } else if (mounted) {
+                  _showSnackBar("Invalid Code", isError: true);
+                }
+              } catch (e) {
+                if (mounted) Navigator.of(context, rootNavigator: true).pop();
+                _showSnackBar("Join Error", isError: true);
+              }
+            },
+            child: const Text("Join"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // --- UI COMPONENTS ---
+  // (Header, cards, and leaderboard items)
 
   Widget _buildHeader(HomeControllers provider, S l10n) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          width: AppConstants.notificationIconSize,
-          height: AppConstants.notificationIconSize,
-          decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-          child: Icon(Icons.notifications_outlined, color: Colors.grey[700]),
+        CircleAvatar(
+          backgroundColor: Colors.white,
+          child: IconButton(
+            icon: Icon(Icons.notifications_outlined, color: Colors.grey[700]),
+            onPressed: () => _showSnackBar("No notifications"),
+          ),
         ),
         Expanded(
           child: Column(
@@ -153,33 +344,33 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   CustomWhitecontainer(data: '${l10n.level} ${provider.user?.level ?? "0"}', icon: Icons.verified_rounded, color: Colors.deepPurpleAccent),
                   const SizedBox(width: 10),
-                  CustomWhitecontainer(data: '${provider.user?.xp ?? "0"} ${l10n.points}', icon: Icons.star, color: Colors.orange),
+                  CustomWhitecontainer(data: '${provider.user?.xp ?? "0"} pts', icon: Icons.star, color: Colors.orange),
                 ],
               ),
             ],
           ),
         ),
-        CircleAvatar(radius: 30, backgroundColor: Colors.blue[100], child: Icon(Icons.person, color: Colors.blue[700])),
+        CircleAvatar(radius: 25, backgroundColor: Colors.blue[100], child: Icon(Icons.person, color: Colors.blue[700])),
       ],
     );
   }
 
-  Widget _buildQuickPlayCard(BuildContext context, S l10n, HomeControllers provider) {
+  Widget _buildQuickPlayCard(S l10n) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(30),
+      padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
         gradient: const LinearGradient(colors: [AppColors.quickPlayGradientStart, AppColors.quickPlayGradientEnd]),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Column(
         children: [
-          const Text('⚡', style: TextStyle(fontSize: 50)),
-          const SizedBox(height: 10),
-          Text(l10n.quickPlay, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white)),
-          const SizedBox(height: 20),
+          const Text('⚡', style: TextStyle(fontSize: 40)),
+          Text(l10n.quickPlay, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
+          const SizedBox(height: 15),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () => _showSnackBar("Quick Play coming soon"),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.white, foregroundColor: Colors.blue),
             child: Text(l10n.startNow),
           ),
         ],
@@ -191,15 +382,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 200,
+        height: 180,
         decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(AppConstants.borderRadius)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (iconText != null) Text(iconText, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold))
-            else Icon(icon, size: 40),
+            if (iconText != null) Text(iconText, style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold)) else Icon(icon, size: 40),
+            const SizedBox(height: 10),
             Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-            Text(subtitle, style: const TextStyle(fontSize: 12)),
+            Text(subtitle, style: const TextStyle(fontSize: 10), textAlign: TextAlign.center),
           ],
         ),
       ),
@@ -208,228 +399,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildLeaderboardSection(S l10n) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(l10n.viewAll), Text(l10n.topPlayers, style: const TextStyle(fontWeight: FontWeight.bold))],
-        ),
-        const SizedBox(height: 15),
-        _buildLeaderboardItem(rank: 1, name: 'User', achievement: '3 Wins', avatarColor: Colors.blue),
+        Text(l10n.topPlayers, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+        const SizedBox(height: 10),
+        _buildLeaderboardItem(rank: 1, name: "Champion", xp: "10 Wins", color: Colors.amber),
+        _buildLeaderboardItem(rank: 2, name: "Pro Player", xp: "8 Wins", color: Colors.grey),
       ],
     );
   }
 
-  Widget _buildLeaderboardItem({required int rank, required String name, required String achievement, required Color avatarColor}) {
+  Widget _buildLeaderboardItem({required int rank, required String name, required String xp, required Color color}) {
     return ListTile(
-      leading: CircleAvatar(child: Text('#$rank')),
+      leading: CircleAvatar(backgroundColor: color, child: Text("#$rank", style: const TextStyle(color: Colors.white))),
       title: Text(name),
-      subtitle: Text(achievement),
-    );
-  }
-
-  // --- START OF LOGIC FOR ROOMS ---
-
-  void _showGameOptions(BuildContext context, HomeControllers provider, S l10n) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return Container(
-          height: AppConstants.bottomSheetHeight,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0)),
-          ),
-          child: Column(
-            children: [
-              const SizedBox(height: 15),
-              Container(width: 50, height: 5, decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(10))),
-              const SizedBox(height: 20),
-              Text(l10n.startPlaying, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              ListTile(
-                leading: const Icon(Icons.add_circle, color: Colors.blue),
-                title: Text(l10n.createRoom),
-                onTap: () {
-                  Navigator.pop(context);
-                  _handleCreateRoom(context, provider, l10n);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.login, color: Colors.green),
-                title: Text(l10n.joinRoom),
-                onTap: () {
-                  Navigator.pop(context);
-                  _showJoinDialog(context, provider, l10n);
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Future<void> _handleCreateRoom(BuildContext context, HomeControllers provider, S l10n) async {
-
-
-    try {
-      // 2. Wait for Firebase
-      LoadingIndicator.setLoading(context);
-      final roomId = await GameMethods.createRoom(provider.username);
-
-      LoadingIndicator.setLoading(context,false);
-
-
-      if (roomId.isNotEmpty) {
-        _showRoomCodeDialog(context, roomId, l10n);
-        _listenForPlayerJoin(roomId, context);
-      }
-    } catch (e) {
-
-      _showSnackBar(context, "Error: $e", isError: true);
-    }
-  }
-
-  void _listenForPlayerJoin(String roomId, BuildContext context) {
-    _roomListener?.cancel();
-    _roomListener = FirebaseFirestore.instance
-        .collection('rooms')
-        .doc(roomId)
-        .snapshots()
-        .listen((snapshot) {
-      if (!snapshot.exists) return;
-
-      final data = snapshot.data();
-
-      // Check if player2 has joined (gameState is updated by the Joiner)
-      if (data != null && data['gameState'] == 'playing') {
-        _roomListener?.cancel(); // Stop listening to save resources
-
-        // 1. Close the Room ID Dialog if it is open
-        if (context.mounted) {
-          Navigator.of(context, rootNavigator: true).pop();
-        }
-
-        // 2. Navigate to Game Screen
-        if (context.mounted) {
-          Navigator.pushNamed(context, '/game', arguments: roomId);
-
-          _showSnackBar(context, "Match Found! Starting game...");
-        }
-      }
-    });
-  }
-
-  void _showRoomCodeDialog(BuildContext context, String roomId, S l10n) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.roomCreated),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(l10n.shareCode),
-            const SizedBox(height: 10),
-            Container(
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(10)),
-              child: Text(roomId, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, letterSpacing: 5)),
-            ),
-            const SizedBox(height: 20),
-            const LinearProgressIndicator(),
-            const Text("Waiting for player...", style: TextStyle(fontSize: 12)),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              _roomListener?.cancel();
-              Navigator.pop(context);
-            },
-            child: Text(l10n.cancel),
-          )
-        ],
-      ),
-    );
-  }
-  void _showJoinDialog(BuildContext context, HomeControllers provider, S l10n) {
-    TextEditingController codeController = TextEditingController();
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          title: const Text("Enter Room Code"),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text("Ask your friend for the Game ID."),
-              const SizedBox(height: 15),
-              TextField(
-                controller: codeController,
-                keyboardType: TextInputType.number, // Only numbers keyboard
-                maxLength: 5, // Limit to 5 digits
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 24, letterSpacing: 5, fontWeight: FontWeight.bold),
-                decoration: InputDecoration(
-                  hintText: "00000",
-                  counterText: "", // Hides the "0/5" counter text
-                  filled: true,
-                  fillColor: Colors.grey.shade100,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text("Cancel", style: TextStyle(color: Colors.grey)),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-              ),
-              onPressed: () {
-                String code = codeController.text;
-                if (code.length == 5) {
-                  Navigator.pop(context); // Close dialog
-
-                  // TODO: Call your Firebase join function here!
-                  // joinRoom(code); 
-                  print("Joining room: $code");
-                } else {
-                  // Show error if not 5 numbers
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Please enter a valid 5-digit code")),
-                  );
-                }
-              },
-              child: const Text("Join Game", style: TextStyle(color: Colors.white)),
-            ),
-          ],
-        );
-      },
-    );
-  }
- 
-
-  void _showSnackBar(BuildContext context, String message, {bool isError = false}) {
-    // Always check if the widget is still in the tree before showing a SnackBar
-    if (!context.mounted) return;
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: isError ? Colors.red : Colors.green,
-      ),
+      subtitle: Text(xp),
     );
   }
 }

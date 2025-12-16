@@ -4,6 +4,12 @@ class LoadingIndicator {
   static bool _isShowing = false;
 
   static void setLoading(BuildContext context, [bool value = true]) {
+    // Check if context is still valid
+    if (!context.mounted) {
+      _isShowing = false;
+      return;
+    }
+
     if (value) {
       if (!_isShowing) {
         _isShowing = true;
@@ -17,9 +23,17 @@ class LoadingIndicator {
         );
       }
     } else {
-      if (_isShowing && Navigator.of(context).canPop()) {
-        Navigator.of(context).pop();
-        _isShowing = false;
+      if (_isShowing) {
+        try {
+          final navigator = Navigator.maybeOf(context);
+          if (navigator != null && navigator.canPop()) {
+            navigator.pop();
+          }
+        } catch (e) {
+          print("Error dismissing loading: $e");
+        } finally {
+          _isShowing = false;
+        }
       }
     }
   }
