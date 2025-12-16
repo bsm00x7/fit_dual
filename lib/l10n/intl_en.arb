@@ -21,7 +21,6 @@
 
   "yes": "Yes",
   "no": "No",
-  "cancel": "Cancel",
   "confirm": "Confirm",
   "save": "Save",
   "back": "Back",
@@ -133,5 +132,26 @@
   "viewAll": "View All",
   "level": "Level",
   "points": "Points",
-  "hello": "Hello"
+  "hello": "Hello",
+
+  "retry": "Retry",
+  "guest": "Guest",
+  "startPlaying": "Start Playing",
+  "createRoom": "Create Room",
+  "generateCode": "Generate a code to invite a friend",
+  "joinRoom": "Join Room",
+  "enterCode": "Enter a 5-digit code",
+  "roomCreated": "Room Created!",
+  "shareCode": "Share this code with your friend:",
+  "waitingForPlayer": "Waiting for player to join...",
+  "cancel": "Cancel",
+  "enterRoomCode": "Enter Room Code",
+  "askFriendCode": "Ask your friend for the Game ID.",
+  "invalidCode": "Please enter a valid 5-digit code",
+  "joinSuccess": "Successfully joined the room!",
+  "roomNotFound": "Room not found or already full",
+  "errorCreatingRoom": "Error creating room",
+  "errorJoiningRoom": "Error joining room",
+  "joinGame": "Join Game"
+
 }

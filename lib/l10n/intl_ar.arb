@@ -133,5 +133,26 @@
   "viewAll": "عرض الكل",
   "level": "مستوى",
   "points": "نقطة",
-  "hello": "أهلاً"
+  "hello": "أهلاً",
+
+  "retry": "إعادة المحاولة",
+  "guest": "ضيف",
+  "startPlaying": "ابدأ اللعب",
+  "createRoom": "إنشاء غرفة",
+  "generateCode": "إنشاء رمز لدعوة صديق",
+  "joinRoom": "انضم للغرفة",
+  "enterCode": "أدخل رمز مكون من 5 أرقام",
+  "roomCreated": "تم إنشاء الغرفة!",
+  "shareCode": "شارك هذا الرمز مع صديقك:",
+  "waitingForPlayer": "في انتظار انضمام اللاعب...",
+
+  "enterRoomCode": "أدخل رمز الغرفة",
+  "askFriendCode": "اطلب من صديقك رمز اللعبة.",
+  "invalidCode": "الرجاء إدخال رمز صالح مكون من 5 أرقام",
+  "joinSuccess": "تم الانضمام للغرفة بنجاح!",
+  "roomNotFound": "الغرفة غير موجودة أو ممتلئة",
+  "errorCreatingRoom": "خطأ في إنشاء الغرفة",
+  "errorJoiningRoom": "خطأ في الانضمام للغرفة",
+  "joinGame": "انضم للعبة"
+
 }

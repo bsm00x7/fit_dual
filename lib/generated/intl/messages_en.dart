@@ -57,6 +57,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "argumentError": MessageLookupByLibrary.simpleMessage(
       "Invalid argument provided.",
     ),
+    "askFriendCode": MessageLookupByLibrary.simpleMessage(
+      "Ask your friend for the Game ID.",
+    ),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "cancelledPopupRequest": MessageLookupByLibrary.simpleMessage(
@@ -70,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Compete with your friends",
     ),
     "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+    "createRoom": MessageLookupByLibrary.simpleMessage("Create Room"),
     "credentialAlreadyInUse": MessageLookupByLibrary.simpleMessage(
       "This credential is already associated with a different user account.",
     ),
@@ -83,10 +87,18 @@ class MessageLookup extends MessageLookupByLibrary {
     "emailAlreadyInUse": MessageLookupByLibrary.simpleMessage(
       "This email address is already registered. Please use a different email or try logging in.",
     ),
+    "enterCode": MessageLookupByLibrary.simpleMessage("Enter a 5-digit code"),
     "enterEmail": MessageLookupByLibrary.simpleMessage("Email address"),
     "enterLogin": MessageLookupByLibrary.simpleMessage("Login"),
+    "enterRoomCode": MessageLookupByLibrary.simpleMessage("Enter Room Code"),
     "error": MessageLookupByLibrary.simpleMessage("Error"),
     "errorCode": MessageLookupByLibrary.simpleMessage("Error code"),
+    "errorCreatingRoom": MessageLookupByLibrary.simpleMessage(
+      "Error creating room",
+    ),
+    "errorJoiningRoom": MessageLookupByLibrary.simpleMessage(
+      "Error joining room",
+    ),
     "expiredActionCode": MessageLookupByLibrary.simpleMessage(
       "The password reset link has expired. Please request a new one.",
     ),
@@ -94,6 +106,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Authentication Error",
     ),
     "forgetPassword": MessageLookupByLibrary.simpleMessage("Forgot password?"),
+    "generateCode": MessageLookupByLibrary.simpleMessage(
+      "Generate a code to invite a friend",
+    ),
+    "guest": MessageLookupByLibrary.simpleMessage("Guest"),
     "hello": MessageLookupByLibrary.simpleMessage("Hello"),
     "homeTitle": MessageLookupByLibrary.simpleMessage("Home"),
     "internalError": MessageLookupByLibrary.simpleMessage(
@@ -104,6 +120,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "invalidApiKey": MessageLookupByLibrary.simpleMessage(
       "Invalid API key provided.",
+    ),
+    "invalidCode": MessageLookupByLibrary.simpleMessage(
+      "Please enter a valid 5-digit code",
     ),
     "invalidContinueUri": MessageLookupByLibrary.simpleMessage(
       "The continue URL provided is invalid.",
@@ -131,6 +150,11 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "invalidVerificationId": MessageLookupByLibrary.simpleMessage(
       "The verification ID is invalid. Please try again.",
+    ),
+    "joinGame": MessageLookupByLibrary.simpleMessage("Join Game"),
+    "joinRoom": MessageLookupByLibrary.simpleMessage("Join Room"),
+    "joinSuccess": MessageLookupByLibrary.simpleMessage(
+      "Successfully joined the room!",
     ),
     "keychainError": MessageLookupByLibrary.simpleMessage(
       "An error occurred accessing the keychain.",
@@ -197,14 +221,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "requiresRecentLogin": MessageLookupByLibrary.simpleMessage(
       "This operation requires recent authentication. Please log in again.",
     ),
+    "retry": MessageLookupByLibrary.simpleMessage("Retry"),
     "retryInAnthorTime": MessageLookupByLibrary.simpleMessage(
       "Try In Anthor time, and Thank You",
+    ),
+    "roomCreated": MessageLookupByLibrary.simpleMessage("Room Created!"),
+    "roomNotFound": MessageLookupByLibrary.simpleMessage(
+      "Room not found or already full",
     ),
     "save": MessageLookupByLibrary.simpleMessage("Save"),
     "sessionExpired": MessageLookupByLibrary.simpleMessage(
       "Your session has expired. Please try again.",
     ),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "shareCode": MessageLookupByLibrary.simpleMessage(
+      "Share this code with your friend:",
+    ),
     "signUpFree": MessageLookupByLibrary.simpleMessage("Sign up for free"),
     "startGame": MessageLookupByLibrary.simpleMessage("Start playing now!"),
     "startJourney": MessageLookupByLibrary.simpleMessage(
@@ -214,6 +246,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Sign in to enjoy the best quizzes",
     ),
     "startNow": MessageLookupByLibrary.simpleMessage("Start Now"),
+    "startPlaying": MessageLookupByLibrary.simpleMessage("Start Playing"),
     "testKnowledge": MessageLookupByLibrary.simpleMessage(
       "Test your knowledge in a random challenge",
     ),
@@ -246,6 +279,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Your session has expired. Please log in again.",
     ),
     "viewAll": MessageLookupByLibrary.simpleMessage("View All"),
+    "waitingForPlayer": MessageLookupByLibrary.simpleMessage(
+      "Waiting for player to join...",
+    ),
     "weakPassword": MessageLookupByLibrary.simpleMessage(
       "The password is too weak. Please use a stronger password with at least 6 characters.",
     ),

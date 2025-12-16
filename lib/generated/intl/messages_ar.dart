@@ -58,6 +58,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "argumentError": MessageLookupByLibrary.simpleMessage(
       "تم تقديم معامل غير صالح.",
     ),
+    "askFriendCode": MessageLookupByLibrary.simpleMessage(
+      "اطلب من صديقك رمز اللعبة.",
+    ),
     "back": MessageLookupByLibrary.simpleMessage("رجوع"),
     "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "cancelledPopupRequest": MessageLookupByLibrary.simpleMessage(
@@ -69,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "challengePlayer": MessageLookupByLibrary.simpleMessage("تحدي لاعب"),
     "competeWithFriends": MessageLookupByLibrary.simpleMessage("نافس أصدقائك"),
     "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
+    "createRoom": MessageLookupByLibrary.simpleMessage("إنشاء غرفة"),
     "credentialAlreadyInUse": MessageLookupByLibrary.simpleMessage(
       "بيانات الاعتماد هذه مرتبطة بحساب مستخدم آخر.",
     ),
@@ -80,10 +84,20 @@ class MessageLookup extends MessageLookupByLibrary {
     "emailAlreadyInUse": MessageLookupByLibrary.simpleMessage(
       "البريد الإلكتروني مسجل مسبقاً. الرجاء استخدام بريد آخر أو تسجيل الدخول.",
     ),
+    "enterCode": MessageLookupByLibrary.simpleMessage(
+      "أدخل رمز مكون من 5 أرقام",
+    ),
     "enterEmail": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "enterLogin": MessageLookupByLibrary.simpleMessage("دخول"),
+    "enterRoomCode": MessageLookupByLibrary.simpleMessage("أدخل رمز الغرفة"),
     "error": MessageLookupByLibrary.simpleMessage("خطأ"),
     "errorCode": MessageLookupByLibrary.simpleMessage("رمز الخطأ"),
+    "errorCreatingRoom": MessageLookupByLibrary.simpleMessage(
+      "خطأ في إنشاء الغرفة",
+    ),
+    "errorJoiningRoom": MessageLookupByLibrary.simpleMessage(
+      "خطأ في الانضمام للغرفة",
+    ),
     "expiredActionCode": MessageLookupByLibrary.simpleMessage(
       "انتهت صلاحية رابط إعادة تعيين كلمة المرور. الرجاء طلب رابط جديد.",
     ),
@@ -91,6 +105,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "خطأ في المصادقة",
     ),
     "forgetPassword": MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
+    "generateCode": MessageLookupByLibrary.simpleMessage(
+      "إنشاء رمز لدعوة صديق",
+    ),
+    "guest": MessageLookupByLibrary.simpleMessage("ضيف"),
     "hello": MessageLookupByLibrary.simpleMessage("أهلاً"),
     "homeTitle": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
     "internalError": MessageLookupByLibrary.simpleMessage(
@@ -101,6 +119,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "invalidApiKey": MessageLookupByLibrary.simpleMessage(
       "تم تقديم مفتاح API غير صالح.",
+    ),
+    "invalidCode": MessageLookupByLibrary.simpleMessage(
+      "الرجاء إدخال رمز صالح مكون من 5 أرقام",
     ),
     "invalidContinueUri": MessageLookupByLibrary.simpleMessage(
       "رابط المتابعة المقدم غير صالح.",
@@ -128,6 +149,11 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "invalidVerificationId": MessageLookupByLibrary.simpleMessage(
       "معرّف التحقق غير صالح. الرجاء المحاولة مرة أخرى.",
+    ),
+    "joinGame": MessageLookupByLibrary.simpleMessage("انضم للعبة"),
+    "joinRoom": MessageLookupByLibrary.simpleMessage("انضم للغرفة"),
+    "joinSuccess": MessageLookupByLibrary.simpleMessage(
+      "تم الانضمام للغرفة بنجاح!",
     ),
     "keychainError": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ أثناء الوصول إلى سلسلة المفاتيح.",
@@ -194,14 +220,22 @@ class MessageLookup extends MessageLookupByLibrary {
     "requiresRecentLogin": MessageLookupByLibrary.simpleMessage(
       "تتطلب هذه العملية مصادقة حديثة. الرجاء تسجيل الدخول مرة أخرى.",
     ),
+    "retry": MessageLookupByLibrary.simpleMessage("إعادة المحاولة"),
     "retryInAnthorTime": MessageLookupByLibrary.simpleMessage(
       "الرجاء المحولة في وقت لحقا و شكراا",
+    ),
+    "roomCreated": MessageLookupByLibrary.simpleMessage("تم إنشاء الغرفة!"),
+    "roomNotFound": MessageLookupByLibrary.simpleMessage(
+      "الغرفة غير موجودة أو ممتلئة",
     ),
     "save": MessageLookupByLibrary.simpleMessage("حفظ"),
     "sessionExpired": MessageLookupByLibrary.simpleMessage(
       "انتهت صلاحية الجلسة. الرجاء المحاولة مرة أخرى.",
     ),
     "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
+    "shareCode": MessageLookupByLibrary.simpleMessage(
+      "شارك هذا الرمز مع صديقك:",
+    ),
     "signUpFree": MessageLookupByLibrary.simpleMessage("سجل مجاناً"),
     "startGame": MessageLookupByLibrary.simpleMessage("ابدأ اللعب الآن!"),
     "startJourney": MessageLookupByLibrary.simpleMessage("ابدأ رحلتك الآن!"),
@@ -209,6 +243,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "سجل دخولك لتستمتع بأفضل المسابقات",
     ),
     "startNow": MessageLookupByLibrary.simpleMessage("ابدأ الآن"),
+    "startPlaying": MessageLookupByLibrary.simpleMessage("ابدأ اللعب"),
     "testKnowledge": MessageLookupByLibrary.simpleMessage(
       "اختبر معلوماتك في تحدي عشوائي",
     ),
@@ -241,6 +276,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "انتهت صلاحية الجلسة. الرجاء تسجيل الدخول مرة أخرى.",
     ),
     "viewAll": MessageLookupByLibrary.simpleMessage("عرض الكل"),
+    "waitingForPlayer": MessageLookupByLibrary.simpleMessage(
+      "في انتظار انضمام اللاعب...",
+    ),
     "weakPassword": MessageLookupByLibrary.simpleMessage(
       "كلمة المرور ضعيفة جداً. الرجاء استخدام كلمة مرور أقوى بـ 6 أحرف على الأقل.",
     ),

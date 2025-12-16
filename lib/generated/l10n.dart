@@ -144,11 +144,6 @@ class S {
     return Intl.message('No', name: 'no', desc: '', args: []);
   }
 
-  /// `Cancel`
-  String get cancel {
-    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
-  }
-
   /// `Confirm`
   String get confirm {
     return Intl.message('Confirm', name: 'confirm', desc: '', args: []);
@@ -942,6 +937,166 @@ class S {
   /// `Hello`
   String get hello {
     return Intl.message('Hello', name: 'hello', desc: '', args: []);
+  }
+
+  /// `Retry`
+  String get retry {
+    return Intl.message('Retry', name: 'retry', desc: '', args: []);
+  }
+
+  /// `Guest`
+  String get guest {
+    return Intl.message('Guest', name: 'guest', desc: '', args: []);
+  }
+
+  /// `Start Playing`
+  String get startPlaying {
+    return Intl.message(
+      'Start Playing',
+      name: 'startPlaying',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Room`
+  String get createRoom {
+    return Intl.message('Create Room', name: 'createRoom', desc: '', args: []);
+  }
+
+  /// `Generate a code to invite a friend`
+  String get generateCode {
+    return Intl.message(
+      'Generate a code to invite a friend',
+      name: 'generateCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Join Room`
+  String get joinRoom {
+    return Intl.message('Join Room', name: 'joinRoom', desc: '', args: []);
+  }
+
+  /// `Enter a 5-digit code`
+  String get enterCode {
+    return Intl.message(
+      'Enter a 5-digit code',
+      name: 'enterCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Room Created!`
+  String get roomCreated {
+    return Intl.message(
+      'Room Created!',
+      name: 'roomCreated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share this code with your friend:`
+  String get shareCode {
+    return Intl.message(
+      'Share this code with your friend:',
+      name: 'shareCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Waiting for player to join...`
+  String get waitingForPlayer {
+    return Intl.message(
+      'Waiting for player to join...',
+      name: 'waitingForPlayer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
+  }
+
+  /// `Enter Room Code`
+  String get enterRoomCode {
+    return Intl.message(
+      'Enter Room Code',
+      name: 'enterRoomCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ask your friend for the Game ID.`
+  String get askFriendCode {
+    return Intl.message(
+      'Ask your friend for the Game ID.',
+      name: 'askFriendCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid 5-digit code`
+  String get invalidCode {
+    return Intl.message(
+      'Please enter a valid 5-digit code',
+      name: 'invalidCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successfully joined the room!`
+  String get joinSuccess {
+    return Intl.message(
+      'Successfully joined the room!',
+      name: 'joinSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Room not found or already full`
+  String get roomNotFound {
+    return Intl.message(
+      'Room not found or already full',
+      name: 'roomNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error creating room`
+  String get errorCreatingRoom {
+    return Intl.message(
+      'Error creating room',
+      name: 'errorCreatingRoom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error joining room`
+  String get errorJoiningRoom {
+    return Intl.message(
+      'Error joining room',
+      name: 'errorJoiningRoom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Join Game`
+  String get joinGame {
+    return Intl.message('Join Game', name: 'joinGame', desc: '', args: []);
   }
 }
 
