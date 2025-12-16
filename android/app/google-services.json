@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "194435249090",
+    "project_id": "footduel-93bf6",
+    "storage_bucket": "footduel-93bf6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194435249090:android:b14162cbad7a5b43751c5b",
+        "android_client_info": {
+          "package_name": "com.DevBassem"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnn4PSXNF-n8WccB4MpsKTp1FQRC-dQug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194435249090:android:e872e89ee9b93752751c5b",
+        "android_client_info": {
+          "package_name": "com.example.foot_duel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnn4PSXNF-n8WccB4MpsKTp1FQRC-dQug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

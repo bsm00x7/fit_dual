@@ -1,0 +1,137 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Foot Duel App",
+  "appSubtitle": "Test your knowledge, compete, and win",
+
+  "loading": "Loading...",
+
+  "homeTitle": "Home",
+  "welcome": "Welcome to the quiz app",
+
+  "startJourney": "Start your journey now!",
+  "startJourneyWithSign": "Sign in to enjoy the best quizzes",
+
+  "login": "Login",
+  "register": "Create account",
+  "logout": "Logout",
+
+  "profile": "Profile",
+  "settings": "Settings",
+
+  "yes": "Yes",
+  "no": "No",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "save": "Save",
+  "back": "Back",
+
+  "startGame": "Start playing now!",
+
+  "enterEmail": "Email address",
+  "PleaseEnterEmail": "Please Enter Your Email",
+  "password": "Password",
+  "forgetPassword": "Forgot password?",
+  "enterLogin": "Login",
+
+  "dontHaveAccount": "Don't have an account?",
+  "HaveAccount": "have an account?",
+  "signUpFree": "Sign up for free",
+
+  "firebaseAuthErrorTitle": "Authentication Error",
+  
+  "userNotFound": "No user found with this email address.",
+  "wrongPassword": "Incorrect password. Please try again.",
+  "invalidEmail": "The email address is not valid.",
+  "userDisabled": "This user account has been disabled.",
+  "invalidCredential": "Please check your email and password.",
+  "accountExistsWithDifferentCredential": "An account already exists with the same email but different sign-in credentials.",
+  
+  "emailAlreadyInUse": "This email address is already registered. Please use a different email or try logging in.",
+  "weakPassword": "The password is too weak. Please use a stronger password with at least 6 characters.",
+  "operationNotAllowed": "This operation is not allowed. Please contact support.",
+  
+  "missingEmail": "Please provide an email address.",
+  "invalidActionCode": "The password reset link is invalid or has expired. Please request a new one.",
+  "expiredActionCode": "The password reset link has expired. Please request a new one.",
+  
+  "networkRequestFailed": "Network error. Please check your internet connection and try again.",
+  "tooManyRequests": "Too many unsuccessful attempts. Please try again later.",
+  
+  "invalidVerificationCode": "The verification code is invalid. Please try again.",
+  "invalidVerificationId": "The verification ID is invalid. Please try again.",
+  "sessionExpired": "Your session has expired. Please try again.",
+  
+  "invalidPhoneNumber": "The phone number format is invalid.",
+  "missingPhoneNumber": "Please provide a phone number.",
+  "quotaExceeded": "SMS quota exceeded. Please try again later.",
+  "captchaCheckFailed": "reCAPTCHA verification failed. Please try again.",
+  
+  "multiFactorAuthRequired": "Multi-factor authentication is required to complete sign-in.",
+  "maximumSecondFactorCountExceeded": "Maximum number of second factors exceeded.",
+  "unsupportedFirstFactor": "The first factor is not supported.",
+  
+  "requiresRecentLogin": "This operation requires recent authentication. Please log in again.",
+  
+  "providerAlreadyLinked": "This provider is already linked to your account.",
+  "noSuchProvider": "This provider is not linked to your account.",
+  "invalidProviderId": "The provider ID is invalid.",
+  
+  "invalidCustomToken": "The custom token format is invalid.",
+  "customTokenMismatch": "The custom token does not match the expected format.",
+  
+  "appDeleted": "The Firebase app has been deleted.",
+  "appNotAuthorized": "This app is not authorized to use Firebase Authentication.",
+  "argumentError": "Invalid argument provided.",
+  
+  "credentialAlreadyInUse": "This credential is already associated with a different user account.",
+  "invalidUserToken": "The user token is invalid. Please log in again.",
+  "userTokenExpired": "Your session has expired. Please log in again.",
+  
+  "internalError": "An internal error occurred. Please try again.",
+  "timeout": "The operation has timed out. Please try again.",
+  "missingClientIdentifier": "Missing client identifier.",
+  "missingContinueUri": "A continue URL must be provided.",
+  "unauthorizedContinueUri": "The continue URL is not authorized.",
+  
+  "invalidContinueUri": "The continue URL provided is invalid.",
+  "missingIosBundleId": "Missing iOS bundle ID.",
+  "missingAndroidPkgName": "Missing Android package name.",
+  
+  "adminRestrictedOperation": "This operation is restricted to administrators only.",
+  
+  "popupBlocked": "The popup was blocked by the browser. Please allow popups for this site.",
+  "popupClosedByUser": "The popup was closed before completing the sign-in.",
+  "unauthorizedDomain": "This domain is not authorized for OAuth operations.",
+  
+  "webStorageUnsupported": "Web storage is not supported or disabled.",
+  
+  "cancelledPopupRequest": "The popup request was cancelled.",
+  "keychainError": "An error occurred accessing the keychain.",
+  "missingIframeStart": "An internal error occurred with the authentication process.",
+  "invalidApiKey": "Invalid API key provided.",
+  "appNotInstalled": "The requested mobile application is not installed.",
+  
+  "unexpectedError": "An unexpected error occurred. Please try again.",
+  "errorCode": "Error code",
+  "error": "Error",
+  "retryInAnthorTime": "Try In Anthor time, and Thank You",
+  "CreateAccount": "Create Account Now !",
+  "JoinUs": "Join Us For Quiz App",
+  "NameUser" : "Name User ",
+  "ConfirmePassword": "Confrime Password",
+  "LeadBoard": "Lead Board ",
+
+  "quickPlay": "Quick Play",
+  "testKnowledge": "Test your knowledge in a random challenge",
+  "startNow": "Start Now",
+  "dailyQuestions": "Daily Questions",
+  "newPrizes": "New Prizes",
+  "challengePlayer": "Challenge Player",
+  "competeWithFriends": "Compete with your friends",
+  "topPlayers": "Top Players",
+  "viewAll": "View All",
+  "level": "Level",
+  "points": "Points",
+  "hello": "Hello"
+}

@@ -1,0 +1,137 @@
+{
+  "@@locale": "ar",
+
+  "appTitle": "تطبيق المسابقات",
+  "appSubtitle": "اختبر معلوماتك، نافس، واربح",
+
+  "loading": "جاري التحميل...",
+
+  "homeTitle": "الصفحة الرئيسية",
+  "welcome": "مرحباً بك في تطبيق المسابقات",
+
+  "startJourney": "ابدأ رحلتك الآن!",
+  "startJourneyWithSign": "سجل دخولك لتستمتع بأفضل المسابقات",
+
+  "login": "تسجيل الدخول",
+  "register": "إنشاء حساب",
+  "logout": "تسجيل الخروج",
+
+  "profile": "الملف الشخصي",
+  "settings": "الإعدادات",
+
+  "yes": "نعم",
+  "no": "لا",
+  "cancel": "إلغاء",
+  "confirm": "تأكيد",
+  "save": "حفظ",
+  "back": "رجوع",
+
+  "startGame": "ابدأ اللعب الآن!",
+
+  "enterEmail": "البريد الإلكتروني",
+  "PleaseEnterEmail": "الرجاء إدخال البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "forgetPassword": "نسيت كلمة المرور؟",
+  "enterLogin": "دخول",
+
+  "dontHaveAccount": "ليس لديك حساب؟",
+  "HaveAccount": "لديك حساب؟",
+  "signUpFree": "سجل مجاناً",
+
+  "firebaseAuthErrorTitle": "خطأ في المصادقة",
+  "error": "خطأ",
+  "userNotFound": "لا يوجد مستخدم بهذا البريد الإلكتروني.",
+  "wrongPassword": "كلمة المرور غير صحيحة. الرجاء المحاولة مرة أخرى.",
+  "invalidEmail": "عنوان البريد الإلكتروني غير صالح.",
+  "userDisabled": "تم تعطيل حساب المستخدم هذا.",
+  "invalidCredential": "الرجاء التحقق من البريد الإلكتروني وكلمة المرور.",
+  "accountExistsWithDifferentCredential": "يوجد حساب بنفس البريد الإلكتروني بطريقة تسجيل دخول مختلفة.",
+  
+  "emailAlreadyInUse": "البريد الإلكتروني مسجل مسبقاً. الرجاء استخدام بريد آخر أو تسجيل الدخول.",
+  "weakPassword": "كلمة المرور ضعيفة جداً. الرجاء استخدام كلمة مرور أقوى بـ 6 أحرف على الأقل.",
+  "operationNotAllowed": "هذه العملية غير مسموح بها. الرجاء التواصل مع الدعم الفني.",
+  
+  "missingEmail": "الرجاء إدخال البريد الإلكتروني.",
+  "invalidActionCode": "رابط إعادة تعيين كلمة المرور غير صالح أو منتهي الصلاحية. الرجاء طلب رابط جديد.",
+  "expiredActionCode": "انتهت صلاحية رابط إعادة تعيين كلمة المرور. الرجاء طلب رابط جديد.",
+  
+  "networkRequestFailed": "خطأ في الشبكة. الرجاء التحقق من اتصال الإنترنت والمحاولة مرة أخرى.",
+  "tooManyRequests": "محاولات كثيرة غير ناجحة. الرجاء المحاولة لاحقاً.",
+  
+  "invalidVerificationCode": "رمز التحقق غير صالح. الرجاء المحاولة مرة أخرى.",
+  "invalidVerificationId": "معرّف التحقق غير صالح. الرجاء المحاولة مرة أخرى.",
+  "sessionExpired": "انتهت صلاحية الجلسة. الرجاء المحاولة مرة أخرى.",
+  
+  "invalidPhoneNumber": "صيغة رقم الهاتف غير صالحة.",
+  "missingPhoneNumber": "الرجاء إدخال رقم الهاتف.",
+  "quotaExceeded": "تم تجاوز حصة الرسائل النصية. الرجاء المحاولة لاحقاً.",
+  "captchaCheckFailed": "فشل التحقق من reCAPTCHA. الرجاء المحاولة مرة أخرى.",
+  
+  "multiFactorAuthRequired": "المصادقة متعددة العوامل مطلوبة لإتمام تسجيل الدخول.",
+  "maximumSecondFactorCountExceeded": "تم تجاوز الحد الأقصى لعوامل المصادقة الثانوية.",
+  "unsupportedFirstFactor": "العامل الأول غير مدعوم.",
+  
+  "requiresRecentLogin": "تتطلب هذه العملية مصادقة حديثة. الرجاء تسجيل الدخول مرة أخرى.",
+  
+  "providerAlreadyLinked": "هذا المزود مرتبط بحسابك بالفعل.",
+  "noSuchProvider": "هذا المزود غير مرتبط بحسابك.",
+  "invalidProviderId": "معرّف المزود غير صالح.",
+  
+  "invalidCustomToken": "صيغة الرمز المخصص غير صالحة.",
+  "customTokenMismatch": "الرمز المخصص لا يطابق الصيغة المتوقعة.",
+  
+  "appDeleted": "تم حذف تطبيق Firebase.",
+  "appNotAuthorized": "هذا التطبيق غير مصرح له باستخدام مصادقة Firebase.",
+  "argumentError": "تم تقديم معامل غير صالح.",
+  
+  "credentialAlreadyInUse": "بيانات الاعتماد هذه مرتبطة بحساب مستخدم آخر.",
+  "invalidUserToken": "رمز المستخدم غير صالح. الرجاء تسجيل الدخول مرة أخرى.",
+  "userTokenExpired": "انتهت صلاحية الجلسة. الرجاء تسجيل الدخول مرة أخرى.",
+  
+  "internalError": "حدث خطأ داخلي. الرجاء المحاولة مرة أخرى.",
+  "timeout": "انتهت مهلة العملية. الرجاء المحاولة مرة أخرى.",
+  "missingClientIdentifier": "معرّف العميل مفقود.",
+  "missingContinueUri": "يجب تقديم رابط المتابعة.",
+  "unauthorizedContinueUri": "رابط المتابعة غير مصرح به.",
+  
+  "invalidContinueUri": "رابط المتابعة المقدم غير صالح.",
+  "missingIosBundleId": "معرّف حزمة iOS مفقود.",
+  "missingAndroidPkgName": "اسم حزمة Android مفقود.",
+  
+  "adminRestrictedOperation": "هذه العملية مقتصرة على المسؤولين فقط.",
+  
+  "popupBlocked": "تم حظر النافذة المنبثقة بواسطة المتصفح. الرجاء السماح بالنوافذ المنبثقة لهذا الموقع.",
+  "popupClosedByUser": "تم إغلاق النافذة المنبثقة قبل إتمام تسجيل الدخول.",
+  "unauthorizedDomain": "هذا النطاق غير مصرح به لعمليات OAuth.",
+  
+  "webStorageUnsupported": "تخزين الويب غير مدعوم أو معطل.",
+  
+  "cancelledPopupRequest": "تم إلغاء طلب النافذة المنبثقة.",
+  "keychainError": "حدث خطأ أثناء الوصول إلى سلسلة المفاتيح.",
+  "missingIframeStart": "حدث خطأ داخلي في عملية المصادقة.",
+  "invalidApiKey": "تم تقديم مفتاح API غير صالح.",
+  "appNotInstalled": "التطبيق المحمول المطلوب غير مثبت.",
+  
+  "unexpectedError": "حدث خطأ غير متوقع. الرجاء المحاولة مرة أخرى.",
+  "errorCode": "رمز الخطأ",
+  "retryInAnthorTime": "الرجاء المحولة في وقت لحقا و شكراا",
+
+  "CreateAccount": "انشئ حسابك الأن !",
+  "JoinUs": "أنضم الينا ة ابدأ التحدي في مسابقاتنا التفاعلية",
+  "NameUser" : "اسم المستخدم ",
+  "ConfirmePassword": "تاكيد كلمة المرور",
+  "LeadBoard": "الترتيب",
+
+  "quickPlay": "لعب سريع",
+  "testKnowledge": "اختبر معلوماتك في تحدي عشوائي",
+  "startNow": "ابدأ الآن",
+  "dailyQuestions": "أسئلة يومية",
+  "newPrizes": "جوائز جديدة",
+  "challengePlayer": "تحدي لاعب",
+  "competeWithFriends": "نافس أصدقائك",
+  "topPlayers": "المتصدرين",
+  "viewAll": "عرض الكل",
+  "level": "مستوى",
+  "points": "نقطة",
+  "hello": "أهلاً"
+}
